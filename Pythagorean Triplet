@@ -1,0 +1,60 @@
+Given an array arr[], return true if there is a triplet (a, b, c) from the array (where a, b, and c are on different indexes) that satisfies a2 + b2 = c2, otherwise return false.
+
+Examples:
+
+Input: arr[] = [3, 2, 4, 6, 5]
+Output: true
+Explanation: a=3, b=4, and c=5 forms a pythagorean triplet.
+Input: arr[] = [3, 8, 5]
+Output: false
+Explanation: No such triplet possible.
+Input: arr[] = [1, 1, 1]
+Output: false
+Constraints:
+1 <= arr.size() <= 105
+1 <= arr[i] <= 103
+
+
+
+
+class Solution {
+public:
+    bool pythagoreanTriplet(vector<int>& arr) {
+
+        int n = arr.size();
+
+        // Step 1: square all elements
+        for(int i=0;i<n;i++)
+        {
+            arr[i] = arr[i] * arr[i];
+        }
+
+        // Step 2: sort
+        sort(arr.begin(), arr.end());
+
+        // Step 3: fix largest element
+        for(int c=n-1; c>=2; c--)
+        {
+            int left = 0;
+            int right = c-1;
+
+            while(left < right)
+            {
+                if(arr[left] + arr[right] == arr[c])
+                {
+                    return true;
+                }
+                else if(arr[left] + arr[right] < arr[c])
+                {
+                    left++;
+                }
+                else
+                {
+                    right--;
+                }
+            }
+        }
+
+        return false;
+    }
+};
